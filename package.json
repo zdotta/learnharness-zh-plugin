@@ -1,0 +1,24 @@
+{
+  "name": "learnharness-zh-language-pack",
+  "private": true,
+  "type": "module",
+  "version": "0.2.0",
+  "license": "AGPL-3.0-only",
+  "description": "Community Simplified Chinese language pack plugin for LearnHarness 0.6.x/0.7.x (DOM translation + Chinese teaching instructions).",
+  "scripts": {
+    "sdk": "node scripts/export-sdk.mjs",
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "export:dictionary": "tsx scripts/export-dictionary.ts",
+    "install:local": "npm run build && node scripts/install-plugin-local.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.28.2",
+    "learnharness-plugin-api": "file:./.sdk",
+    "linkedom": "^0.18.13",
+    "tsx": "^4.23.12",
+    "typescript": "^5.9.3"
+  }
+}

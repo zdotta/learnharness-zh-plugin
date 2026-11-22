@@ -1,0 +1,12 @@
+{
+  "apiVersion": 1,
+  "id": "zh-cn-language-pack",
+  "name": "简体中文语言包",
+  "version": "0.2.0",
+  "minAppVersion": "0.6.1",
+  "description": "社区维护的界面汉化与中文授课语言包（非官方 i18n 过渡方案，上游合并后自动停用）。",
+  "author": "zdotta",
+  "main": "main.js",
+  "backend": "backend.cjs",
+  "styles": "styles.css"
+}

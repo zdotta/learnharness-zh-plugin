@@ -1,0 +1,85 @@
+/* Simplified Chinese language pack — status view styling only.
+   Uses host theme variables so dark/light themes keep working. */
+
+.lh-zh-status {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	padding: 4px 2px 24px;
+	color: var(--foreground);
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+.lh-zh-status h2 {
+	margin: 0;
+	font-size: 15px;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+}
+
+.lh-zh-status p {
+	margin: 0;
+	color: var(--muted-foreground, color-mix(in oklab, var(--foreground) 62%, transparent));
+}
+
+.lh-zh-metrics {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+	gap: 10px;
+}
+
+.lh-zh-metric {
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	padding: 10px 12px;
+}
+
+.lh-zh-metric strong {
+	display: block;
+	font-size: 20px;
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+.lh-zh-metric span {
+	font-size: 12px;
+	color: var(--muted-foreground, color-mix(in oklab, var(--foreground) 62%, transparent));
+}
+
+.lh-zh-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-items: center;
+}
+
+.lh-zh-misses {
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	max-height: 380px;
+	overflow: auto;
+}
+
+.lh-zh-miss {
+	display: grid;
+	grid-template-columns: 48px 1fr;
+	gap: 8px;
+	padding: 6px 10px;
+	border-bottom: 1px solid var(--border);
+	font-size: 13px;
+}
+
+.lh-zh-miss:last-child { border-bottom: 0; }
+
+.lh-zh-miss em {
+	font-style: normal;
+	color: var(--muted-foreground, color-mix(in oklab, var(--foreground) 55%, transparent));
+	text-align: right;
+}
+
+.lh-zh-empty {
+	padding: 18px;
+	text-align: center;
+	color: var(--muted-foreground, color-mix(in oklab, var(--foreground) 55%, transparent));
+}
