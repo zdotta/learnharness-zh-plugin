@@ -20,6 +20,16 @@
 | 覆盖率报告 | — | 「语言包状态」视图：命中/未命中统计、Top 50 未翻译文案、导出 JSON |
 | 快速切换 | — | 侧栏「中文 / English」一键开关界面汉化 |
 
+## 截图
+
+| 首页（侧栏 + 输入框） | 设置导航 |
+| --- | --- |
+| ![首页](docs/screenshots/home.png) | ![设置](docs/screenshots/settings.png) |
+
+| 插件设置页 | 覆盖率报告 |
+| --- | --- |
+| ![插件设置](docs/screenshots/plugin-settings.png) | ![覆盖率](docs/screenshots/coverage.png) |
+
 ## 安装（本地）
 
 ```powershell
