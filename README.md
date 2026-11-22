@@ -30,7 +30,31 @@
 | --- | --- |
 | ![插件设置](docs/screenshots/plugin-settings.png) | ![覆盖率](docs/screenshots/coverage.png) |
 
-## 安装（本地）
+## 桌面版安装（推荐）
+
+前提：LearnHarness 桌面版 **≥ 0.6.1**（在 0.7.0 上验收）。
+
+1. 安装并**首次启动一次**桌面版，让应用创建学习数据目录：
+   - Windows：`%APPDATA%\LearnHarness\data\plugins`
+   - macOS：`~/Library/Application Support/LearnHarness/data/plugins`
+2. **退出应用**（插件状态文件在启动时读取）。
+3. 在插件仓库运行安装脚本：
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File scripts\install-desktop.ps1
+   ```
+
+   脚本会把 `dist/` 安装到 `<data>/plugins/zh-cn-language-pack/dist`，并在
+   `<data>/plugins-state.json` 中启用插件；卸载用 `-Uninstall`。
+
+4. 打开应用 → **设置 → 社区插件** → 刷新列表 → 确认「简体中文语言包」为启用状态。
+5. 若界面仍是英文，重启一次应用（插件代码在启动时加载）。
+
+> 手动安装等价做法：把 `dist/` 的内容复制到
+> `<data>/plugins/zh-cn-language-pack/dist/`（`manifest.json` 必须在 `dist/` 根目录），
+> 然后在 `plugins-state.json` 写入 `{"version":1,"enabled":{"zh-cn-language-pack":true}}`。
+
+## 安装（源码 / 开发）
 
 ```powershell
 # 1. 构建
