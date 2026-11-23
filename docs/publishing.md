@@ -7,6 +7,16 @@ LearnHarness 官方**没有**插件市场、插件注册表或自动更新（`do
 2. 进入社区索引 [awesome-learnharness](https://github.com/tn-lorenz/awesome-learnharness)
 3. 在官方 GitHub Discussions / Discord 公告
 
+## 发布状态（2026-11-24）
+
+| 渠道 | 链接 / 状态 |
+| --- | --- |
+| GitHub 仓库（PUBLIC） | https://github.com/zdotta/learnharness-zh-plugin |
+| Release v0.3.0 | https://github.com/zdotta/learnharness-zh-plugin/releases/tag/v0.3.0 |
+| awesome-learnharness PR | https://github.com/tn-lorenz/awesome-learnharness/pull/5 （OPEN） |
+| 官方 Discussions · Show and tell | https://github.com/amosblomqvist/learnharness/discussions/920 |
+| Discord 公告 | 待手动发布（无 API） |
+
 ## 当前发布配置
 
 | 项 | 值 |
