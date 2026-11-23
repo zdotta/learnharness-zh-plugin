@@ -1,10 +1,10 @@
 {
-  "name": "learnharness-zh-language-pack",
+  "name": "learnharness-zh-language-pack-plus",
   "private": true,
   "type": "module",
-  "version": "0.2.0",
-  "license": "AGPL-3.0-only",
-  "description": "Community Simplified Chinese language pack plugin for LearnHarness 0.6.x/0.7.x (DOM translation + Chinese teaching instructions).",
+  "version": "0.3.0",
+  "license": "MIT",
+  "description": "Community Simplified Chinese language pack plugin for LearnHarness (DOM translation + Chinese teaching instructions + coverage report).",
   "scripts": {
     "sdk": "node scripts/export-sdk.mjs",
     "build": "node scripts/build.mjs",

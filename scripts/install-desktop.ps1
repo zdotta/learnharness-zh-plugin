@@ -13,7 +13,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$pluginId = "zh-cn-language-pack"
+$pluginId = "zh-cn-language-pack-plus"
 $stateFile = Join-Path (Split-Path $PluginsRoot -Parent) "plugins-state.json"
 
 if (Get-Process -Name "LearnHarness","learnharness" -ErrorAction SilentlyContinue) {

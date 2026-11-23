@@ -68,7 +68,7 @@ export function activate(ctx: PluginBackendContext): () => void {
 		return settings;
 	});
 	ctx.handle("getStatus", async () => ({
-		version: "0.2.0",
+		version: "0.3.0",
 		teachingActive: settings.teaching,
 		instructionsRegistered: unregisterInstructions !== undefined,
 		settingsFile: file,

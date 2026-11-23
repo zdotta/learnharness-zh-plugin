@@ -32,7 +32,7 @@ await client.send("Page.setDownloadBehavior", { behavior: "allow", downloadPath:
 
 try {
 	// 1. Coverage view.
-	await page.goto(BASE + "/plugins/zh-cn-language-pack/zh-cn-status", { waitUntil: "networkidle2", timeout: 180000 });
+	await page.goto(BASE + "/plugins/zh-cn-language-pack-plus/zh-cn-status", { waitUntil: "networkidle2", timeout: 180000 });
 	await page.waitForFunction(() => document.documentElement.getAttribute("data-lh-zh-pack") === "active", { timeout: 30000 });
 	await new Promise(resolve => setTimeout(resolve, 1500));
 	const view = await page.evaluate(() => ({
@@ -95,7 +95,7 @@ try {
 	check("重新开启后侧栏恢复中文", afterOn.includes("会话") && afterOn.includes("设置"));
 
 	// 4. Content protection switch: off translates .lh-prose, on restores it.
-	await page.goto(BASE + "/plugins/zh-cn-language-pack/zh-cn-status", { waitUntil: "networkidle2", timeout: 180000 });
+	await page.goto(BASE + "/plugins/zh-cn-language-pack-plus/zh-cn-status", { waitUntil: "networkidle2", timeout: 180000 });
 	await new Promise(resolve => setTimeout(resolve, 1200));
 	const protectionOff = await page.evaluate(async () => {
 		const prose = document.createElement("div");

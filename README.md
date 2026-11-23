@@ -1,14 +1,14 @@
-# 简体中文语言包（LearnHarness 社区插件）
+# 简体中文语言包 · 增强版（LearnHarness 社区插件）
 
 > **非官方插件。** LearnHarness 目前没有 i18n / locale API（0.6.1–0.7.0）。本插件用
 > DOM 改写 + 智能体指令提供简体中文过渡体验，不是产品级国际化方案，也不属于宿主 API 契约。
 > 上游核心 i18n（PR #818）合并后，本插件会在检测到宿主已中文时自动停用。
 
-- **插件 ID**：`zh-cn-language-pack`
+- **插件 ID**：`zh-cn-language-pack-plus`
 - **名称**：简体中文语言包
-- **版本**：0.2.0
+- **版本**：0.3.0
 - **最低宿主版本**：0.6.1（在 0.7.0 上完成验收）
-- **许可**：AGPL-3.0-only
+- **许可**：MIT（词表部分含 jieye666 的 MIT 贡献，见 `THIRD-PARTY.md`）
 
 ## 功能
 
@@ -44,15 +44,15 @@
    powershell -ExecutionPolicy Bypass -File scripts\install-desktop.ps1
    ```
 
-   脚本会把 `dist/` 安装到 `<data>/plugins/zh-cn-language-pack/dist`，并在
+   脚本会把 `dist/` 安装到 `<data>/plugins/zh-cn-language-pack-plus/dist`，并在
    `<data>/plugins-state.json` 中启用插件；卸载用 `-Uninstall`。
 
 4. 打开应用 → **设置 → 社区插件** → 刷新列表 → 确认「简体中文语言包」为启用状态。
 5. 若界面仍是英文，重启一次应用（插件代码在启动时加载）。
 
 > 手动安装等价做法：把 `dist/` 的内容复制到
-> `<data>/plugins/zh-cn-language-pack/dist/`（`manifest.json` 必须在 `dist/` 根目录），
-> 然后在 `plugins-state.json` 写入 `{"version":1,"enabled":{"zh-cn-language-pack":true}}`。
+> `<data>/plugins/zh-cn-language-pack-plus/dist/`（`manifest.json` 必须在 `dist/` 根目录），
+> 然后在 `plugins-state.json` 写入 `{"version":1,"enabled":{"zh-cn-language-pack-plus":true}}`。
 
 ## 安装（源码 / 开发）
 
@@ -66,7 +66,7 @@ npm run build
 node scripts/install-plugin-local.mjs "<learning data>/plugins"
 
 # 3. 启用：编辑 <learning data>/plugins-state.json
-#    {"version":1,"enabled":{"zh-cn-language-pack":true}}
+#    {"version":1,"enabled":{"zh-cn-language-pack-plus":true}}
 
 # 4. 启动 LearnHarness（重启以加载新代码）
 ```
@@ -89,7 +89,8 @@ node scripts/install-plugin-local.mjs "<learning data>/plugins"
 
 - 「语言包状态」视图显示词典条目数、模板规则数、本次命中与未命中（唯一）。
 - 「导出未翻译 JSON」可导出当前窗口的未翻译清单（含 route 与出现次数），用于补充词典或提交 PR。
-实测（Chrome 1440×900，v0.7.0，v0.2.0 插件）：
+
+实测（Chrome 1440×900，宿主 v0.7.0，插件 0.3.0）：
 
 | 界面 | 未翻译的可见文案（唯一） | 说明 |
 | --- | --- | --- |
@@ -98,9 +99,10 @@ node scripts/install-plugin-local.mjs "<learning data>/plugins"
 | 设置：标题 + 导航 | 0 | 服务商/智能体/外观/知识图谱/键盘/通用/核心插件/社区插件 |
 | 设置：通用 / 键盘 | 0 | — |
 | 设置：服务商 | 10 | 全部是品牌名（ChatGPT、Grok、Ollama…），按设计不翻译 |
-| 设置：智能体 | 4 | 工具标识（tool research/demo/visual/pdf）与 `150000 tok` 单位，按设计保留 |
-| 设置：外观 | 17 | 主题名、字体预览标记（Aa/ai/dark/light）与颜色 hex，按设计保留 |
-| 核心插件 | 12 | 其他插件的名称与描述，属于「不翻译其他插件文案」的非目标 |
+| 设置：智能体 | 1 | `150000 tok` 单位，按设计保留 |
+| 设置：外观 | 15 | 主题名、字体预览标记（Aa/ai/dark/light）与颜色 hex，按设计保留 |
+| 设置：核心插件 | 0 | 社区词表覆盖了核心插件卡片名与说明 |
+| 设置：社区插件 | 1 | 分片句子（`Preserve … beside …`） |
 
 > 扫描脚本会把这些「按设计保留」的字符串也列出来，判断标准见 `src/dictionary.extra.ts` 顶部注释。
 
@@ -138,8 +140,13 @@ node tests/integration/scan.mjs / /chat/new  # 覆盖率扫描
 
 - `src/dictionary.ts` 由 `scripts/export-dictionary.ts` 生成，来源为核心 i18n 分支
   `src/core/i18n/zh-CN/*.ts`（651 条，commit `0ce7f358`）。**请勿手改。**
+- `src/dictionary.community.ts` 由 `scripts/import-community-dictionary.ts` 从
+  [jieye666/learnharness-zh-cn](https://github.com/jieye666/learnharness-zh-cn) 的 MIT 词表生成（663 条，
+  仅保留核心词典未覆盖的键）。**请勿手改。**
 - `src/dictionary.extra.ts` 存放插件本地的补充词条（0.7.0 新增设置文案等），可手改。
-- `src/dictionary.rules.ts` 存放数字/版本/相对时间等模板规则。
+- `src/dictionary.rules.ts` + `src/templates.ts`：手写模板规则与 `{0}/{1}` 词条编译规则。
+
+合并后共 **1373 条**词条、**109 条**规则（含 79 条由社区词表编译的模板规则）。
 
 ## 版本
 
@@ -147,9 +154,10 @@ node tests/integration/scan.mjs / /chat/new  # 覆盖率扫描
 | --- | --- |
 | 0.1.0 | 插件骨架、词典导出、matcher/engine、设置页；首页/侧栏/设置可中文 |
 | 0.2.0 | 覆盖率视图与导出、正文保护、快速切换、补充词典、集成验收脚本 |
+| 0.3.0 | 插件 ID 改为 `zh-cn-language-pack-plus`、MIT 许可、合并社区 663 条词表（共 1373 条）、模板规则编译 |
 
 ## 卸载 / 回退
 
 1. 在 **设置 → 社区插件** 中停用插件（页面立即恢复英文）。
-2. 删除 `<learning data>/plugins/zh-cn-language-pack/`，并从 `plugins-state.json` 移除对应条目。
+2. 删除 `<learning data>/plugins/zh-cn-language-pack-plus/`，并从 `plugins-state.json` 移除对应条目。
 3. 插件不会修改宿主的任何核心设置或学习数据。

@@ -13,8 +13,10 @@ import type {
 	PluginWidgetHandle,
 } from "learnharness-plugin-api";
 import { DICTIONARY } from "./dictionary";
+import { DICTIONARY_COMMUNITY } from "./dictionary.community";
 import { DICTIONARY_EXTRA } from "./dictionary.extra";
 import { RULES } from "./dictionary.rules";
+import { compileTemplateRules } from "./templates";
 import { createTranslator } from "./matcher";
 import { installDomTranslator, type DomTranslator } from "./engine";
 import { CoverageCollector } from "./coverage";
@@ -24,7 +26,8 @@ const VIEW_ID = "zh-cn-status";
 const ACTION_ID = "toggle-zh";
 
 export function activate(ctx: PluginFrontendContext): void {
-	const translator = createTranslator({ ...DICTIONARY, ...DICTIONARY_EXTRA }, RULES);
+	const dictionary = { ...DICTIONARY, ...DICTIONARY_COMMUNITY, ...DICTIONARY_EXTRA };
+	const translator = createTranslator(dictionary, [...RULES, ...compileTemplateRules(DICTIONARY_COMMUNITY)]);
 	const coverage = new CoverageCollector();
 	const settings: PluginSettings = { ...DEFAULT_SETTINGS };
 
@@ -56,7 +59,7 @@ export function activate(ctx: PluginFrontendContext): void {
 	const onMiss = (text: string, source: "text" | "attribute", attribute?: string): void => {
 		coverage.recordMiss(text, currentRoute());
 		if (settings.showUntranslated) {
-			console.debug(`[zh-cn-language-pack] untranslated ${source}${attribute ? ` (${attribute})` : ""}: ${text}`);
+			console.debug(`[zh-cn-language-pack-plus] untranslated ${source}${attribute ? ` (${attribute})` : ""}: ${text}`);
 		}
 	};
 
@@ -66,7 +69,7 @@ export function activate(ctx: PluginFrontendContext): void {
 			translate,
 			protectContent: settings.protectContent,
 			onMiss,
-			onError: error => console.warn("[zh-cn-language-pack] translation error", error),
+			onError: error => console.warn("[zh-cn-language-pack-plus] translation error", error),
 		});
 		if (!languageOverridden && !document.documentElement.lang.toLowerCase().startsWith("zh")) {
 			hostLanguage = document.documentElement.lang;
@@ -139,7 +142,7 @@ export function activate(ctx: PluginFrontendContext): void {
 		try {
 			await ctx.call("setSettings", settings);
 		} catch (error) {
-			console.warn("[zh-cn-language-pack] failed to persist settings", error);
+			console.warn("[zh-cn-language-pack-plus] failed to persist settings", error);
 		}
 		if (patch.ui !== undefined || patch.protectContent !== undefined || patch.scope !== undefined) {
 			removeEngine();
@@ -281,7 +284,7 @@ export function activate(ctx: PluginFrontendContext): void {
 			removeEngine();
 			installEngine();
 		} catch (error) {
-			console.warn("[zh-cn-language-pack] failed to load settings, using defaults", error);
+			console.warn("[zh-cn-language-pack-plus] failed to load settings, using defaults", error);
 		}
 	})();
 

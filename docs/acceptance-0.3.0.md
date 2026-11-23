@@ -1,18 +1,28 @@
-# 验收报告 — v0.2.0
+# 验收报告 — v0.3.0
 
-日期：2026-11-23
+日期：2026-11-24
 宿主：LearnHarness v0.7.0（`0292b85b`，干净 clone）
-插件：zh-cn-language-pack 0.2.0
+插件：zh-cn-language-pack-plus 0.3.0（MIT）
 环境：Windows 11 · Node 26.12.1 · Chrome 1440×900 headless（puppeteer-core）
 
 ## 结果
 
 | 套件 | 结果 |
 | --- | --- |
-| 单元测试 `npm test` | 23/23 通过 |
+| 单元测试 `npm test` | 30/30 通过 |
 | M1 验收 `tests/integration/m1-acceptance.mjs` | 24/24 通过 |
 | M2 验收 `tests/integration/m2-coverage.mjs` | 18/18 通过 |
 | 覆盖率扫描（设置 8 个分区） | 见下表 |
+
+## 词典规模
+
+| 来源 | 条目 |
+| --- | --- |
+| 核心 i18n（PR #818 分支，commit 0ce7f358） | 651 |
+| 社区词表（jieye666/learnharness-zh-cn，MIT） | 663（仅补缺） |
+| 插件本地补充（0.7.0 新文案） | 75 |
+| **合并后** | **1373** |
+| 规则（22 手写 + 79 词表模板编译） | **109** |
 
 ## M1 覆盖点
 
@@ -26,24 +36,26 @@
 
 ## M2 覆盖点
 
-- 「语言包状态」视图渲染词典条目/规则/命中/未命中
+- 「语言包状态」视图渲染词典条目（1373）/ 规则（109）/ 命中 / 未命中
 - 导出未翻译 JSON（含 dictionarySize、untranslated、route）
 - 侧栏「中文 / English」切换：关闭后恢复英文（Sessions/Settings），再次开启恢复中文
 - 正文保护开关：关闭后 `.lh-prose` 被翻译为「设置」，并正确写回 `data/settings.json`
 - 后端指令注册：`getStatus.instructionsRegistered = true`；关闭中文授课后变为 false
 
-## 覆盖率扫描（v0.7.0，插件 0.2.0）
+## 覆盖率扫描（v0.7.0，插件 0.3.0）
 
 | 设置分区 | 未翻译唯一字符串 | 归类 |
 | --- | --- | --- |
 | 服务商 | 10 | 品牌名（不翻译） |
-| 智能体 | 4 | 工具标识 `tool research/demo/visual/pdf` 与 `tok` 单位 |
-| 外观 | 17 | 主题名、字体/颜色预览标记 |
-| 知识图谱 | 0 | — |
+| 智能体 | 1 | `150000 tok` 单位 |
+| 外观 | 15 | 主题名、字体/颜色预览标记 |
+| 知识图谱 | 1 | `4096 tok` 单位 |
 | 键盘 | 0 | — |
 | 通用 | 0 | — |
-| 核心插件 | 12 | 其他插件自带名称/描述（非目标） |
-| 社区插件 | 2 | 分片句子（`Preserve … beside …`） |
+| 核心插件 | 0 | — |
+| 社区插件 | 1 | 分片句子（`Preserve … beside …`） |
+
+首页 `/` 与新建会话 `/chat/new`：0 个未翻译。
 
 ## 复现
 

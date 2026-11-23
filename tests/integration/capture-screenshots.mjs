@@ -36,7 +36,7 @@ await page.evaluate(() => {
 await new Promise(resolve => setTimeout(resolve, 900));
 await page.screenshot({ path: path.join(OUT, "plugin-settings.png") });
 
-await page.goto(BASE + "/plugins/zh-cn-language-pack/zh-cn-status", { waitUntil: "networkidle2", timeout: 180000 });
+await page.goto(BASE + "/plugins/zh-cn-language-pack-plus/zh-cn-status", { waitUntil: "networkidle2", timeout: 180000 });
 await new Promise(resolve => setTimeout(resolve, 1500));
 await page.screenshot({ path: path.join(OUT, "coverage.png") });
 
